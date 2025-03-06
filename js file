@@ -1,0 +1,26 @@
+jQuery(document).ready(function ($) {
+    var defaultImg = "default.jpg"; // Change to your actual default image URL
+    var mobileBreakpoint = 768; // Adjust as needed for mobile detection
+
+    $(".team-item .team-content").hide(); // Hide content initially
+
+    $(".team-item").on("click", function () {
+        var imgSrc = $(this).data("image");
+        var content = $(this).find(".team-content");
+
+        // If this item is already open, close it and reset the image
+        if (content.is(":visible")) {
+            content.slideUp();
+            if ($(window).width() > mobileBreakpoint) {
+                $(".team-image img").attr("src", defaultImg);
+            }
+        } else {
+            // Close all other contents and update image only on desktop
+            $(".team-item .team-content").slideUp();
+            content.slideDown();
+            if ($(window).width() > mobileBreakpoint) {
+                $(".team-image img").attr("src", imgSrc);
+            }
+        }
+    });
+});
